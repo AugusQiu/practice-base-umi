@@ -1,18 +1,42 @@
-import React from 'react';
-import styles from './index.css';
+import React, { useState, useRef } from 'react';
+import { Modal, Button } from 'antd';
+import CustomModal from '@/components/my-modal'
 
-export default function() {
+export default function MyModal(){
+  const modalRef = useRef(null)
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+    // (modalRef.current! as any)?.alertMsg();
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <div className={styles.normal}>
-      <div className={styles.welcome} />
-      <ul className={styles.list}>
-        <li>To get started, edit <code>src/pages/index.js</code> and save to reload.</li>
-        <li>
-          <a href="https://umijs.org/guide/getting-started.html">
-            Getting Started
-          </a>
-        </li>
-      </ul>
+    <div>
+      <Button type="primary" onClick={showModal}>
+        Open Modal
+      </Button>
+      {/* <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal> */}
+      <CustomModal
+        title="Basic Modal" 
+        content="haha" 
+        visible={isModalVisible}
+        onOk={handleOk} 
+        onCancel={handleCancel}
+        ref={modalRef}
+      />
     </div>
   );
-}
+};
